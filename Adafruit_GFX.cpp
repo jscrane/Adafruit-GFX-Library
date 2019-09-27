@@ -1932,6 +1932,13 @@ void GFXcanvas16::fillScreen(uint16_t color) {
             SPECIFIC endian-ness, it just flips the bytes within each word.
 */
 /**************************************************************************/
+#ifdef ENERGIA
+static inline unsigned short __builtin_bswap16(unsigned short a)
+{
+	    return (a<<8)|(a>>8);
+}
+#endif
+
 void GFXcanvas16::byteSwap(void) {
     if(buffer) {
         uint32_t i, pixels = WIDTH * HEIGHT;

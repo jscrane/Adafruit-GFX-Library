@@ -135,8 +135,10 @@ class Adafruit_SPITFT : public Adafruit_GFX {
     // optional reset pin. cs is required but can be -1 if unused -- rather
     // than moving it to the optional arguments, it was done this way to
     // avoid breaking existing code (-1 option was a later addition).
+    /*
     Adafruit_SPITFT(uint16_t w, uint16_t h,
       int8_t cs, int8_t dc, int8_t rst = -1);
+      */
 
 #if !defined(ESP8266) // See notes in .cpp
     // Hardware SPI constructor using an arbitrary SPI peripheral: expects
@@ -474,7 +476,7 @@ class Adafruit_SPITFT : public Adafruit_GFX {
         int8_t    _d0;             ///< Data pin 0 #
         int8_t    _wr;             ///< Write strobe pin #
         int8_t    _rd;             ///< Read strobe pin # (or -1)
-        bool      wide = 0;        ///< If true, is 16-bit interface
+        bool      wide;        ///< If true, is 16-bit interface
       } tft8;                      ///< Parallel interface settings
 #if defined(__cplusplus) && (__cplusplus >= 201100)
     };                             ///< Only one interface is active
@@ -507,12 +509,12 @@ class Adafruit_SPITFT : public Adafruit_GFX {
     int8_t        _cs;             ///< Chip select pin # (or -1)
     int8_t        _dc;             ///< Data/command pin #
 
-    int16_t       _xstart   = 0;   ///< Internal framebuffer X offset
-    int16_t       _ystart   = 0;   ///< Internal framebuffer Y offset
-    uint8_t       invertOnCommand  = 0; ///< Command to enable invert mode
-    uint8_t       invertOffCommand = 0; ///< Command to disable invert mode
+    int16_t       _xstart;   ///< Internal framebuffer X offset
+    int16_t       _ystart;   ///< Internal framebuffer Y offset
+    uint8_t       invertOnCommand; ///< Command to enable invert mode
+    uint8_t       invertOffCommand; ///< Command to disable invert mode
 
-    uint32_t      _freq = 0;       ///< Dummy var to keep subclasses happy
+    uint32_t      _freq;       ///< Dummy var to keep subclasses happy
 };
 
 #endif // end __AVR_ATtiny85__

@@ -121,6 +121,10 @@
 Adafruit_SPITFT::Adafruit_SPITFT(uint16_t w, uint16_t h,
   int8_t cs, int8_t dc, int8_t mosi, int8_t sck, int8_t rst, int8_t miso) :
   Adafruit_GFX(w, h), connection(TFT_SOFT_SPI), _rst(rst), _cs(cs), _dc(dc) {
+	_xstart = _ystart = 0;
+	invertOnCommand = invertOffCommand = 0;
+	_freq = 0;
+
     swspi._sck  = sck;
     swspi._mosi = mosi;
     swspi._miso = miso;
@@ -241,14 +245,24 @@ Adafruit_SPITFT::Adafruit_SPITFT(uint16_t w, uint16_t h,
 Adafruit_SPITFT::Adafruit_SPITFT(uint16_t w, uint16_t h, int8_t cs,
   int8_t dc, int8_t rst) : Adafruit_GFX(w, h),
   connection(TFT_HARD_SPI), _rst(rst), _cs(cs), _dc(dc) {
+	_xstart = _ystart = 0;
+	invertOnCommand = invertOffCommand = 0;
+	_freq = 0;
+
     hwspi._spi = &SPI;
 }
+/*
 #else  // !ESP8266
 Adafruit_SPITFT::Adafruit_SPITFT(uint16_t w, uint16_t h, int8_t cs,
   int8_t dc, int8_t rst) : Adafruit_SPITFT(w, h, &SPI, cs, dc, rst) {
+	_xstart = _ystart = 0;
+	invertOnCommand = invertOffCommand = 0;
+	_freq = 0;
+
     // This just invokes the hardware SPI constructor below,
     // passing the default SPI device (&SPI).
 }
+*/
 #endif // end !ESP8266
 
 #if !defined(ESP8266)
@@ -283,6 +297,10 @@ Adafruit_SPITFT::Adafruit_SPITFT(uint16_t w, uint16_t h, int8_t cs,
 Adafruit_SPITFT::Adafruit_SPITFT(uint16_t w, uint16_t h, SPIClass *spiClass,
   int8_t cs, int8_t dc, int8_t rst) : Adafruit_GFX(w, h),
   connection(TFT_HARD_SPI), _rst(rst), _cs(cs), _dc(dc) {
+	_xstart = _ystart = 0;
+	invertOnCommand = invertOffCommand = 0;
+	_freq = 0;
+
     hwspi._spi = spiClass;
 #if defined(USE_FAST_PINIO)
  #if defined(HAS_PORT_SET_CLR)
@@ -379,6 +397,10 @@ Adafruit_SPITFT::Adafruit_SPITFT(uint16_t w, uint16_t h, SPIClass *spiClass,
 Adafruit_SPITFT::Adafruit_SPITFT(uint16_t w, uint16_t h, tftBusWidth busWidth,
   int8_t d0, int8_t wr, int8_t dc, int8_t cs, int8_t rst, int8_t rd) :
   Adafruit_GFX(w, h), connection(TFT_PARALLEL), _rst(rst), _cs(cs), _dc(dc) {
+	_xstart = _ystart = 0;
+	invertOnCommand = invertOffCommand = 0;
+	_freq = 0;
+
     tft8._d0  = d0;
     tft8._wr  = wr;
     tft8._rd  = rd;
